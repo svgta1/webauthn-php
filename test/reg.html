@@ -1,0 +1,54 @@
+<html>
+<head>
+  <script src="./js/simplewebauthn.js"></script>
+</head>
+<body>
+  <h2>Success<h2>
+  <p id="success"></p>
+  <h2>Error<h2>
+  <p id="error"></p>
+  <script>
+    async function register(){
+      const { startRegistration } = SimpleWebAuthnBrowser;
+      const elemSuccess = document.getElementById('success');
+      const elemError = document.getElementById('error');
+
+      const resp = await fetch('./register.php', {credentials: "same-origin"});
+      let attResp;
+      try {
+        // Pass the options to the authenticator and wait for a response
+        attResp = await startRegistration(await resp.json());
+      } catch (error) {
+        // Some basic error handling
+        if (error.name === 'InvalidStateError') {
+          elemError.innerText = 'Error: Authenticator was probably already registered by user';
+        } else {
+          elemError.innerText = error;
+        }
+
+        throw error;
+      }
+
+      console.log(attResp);
+
+      const verificationResp = await fetch('./register_callback.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(attResp),
+        credentials: "same-origin"
+      });
+      const verificationJSON = await verificationResp.json();
+      if (verificationJSON && verificationJSON.verified) {
+        elemSuccess.innerHTML = 'Success!';
+      } else {
+        elemError.innerHTML = `Oh no, something went wrong! Response: <pre>${JSON.stringify(
+          verificationJSON,
+        )}</pre>`;
+      }
+    }
+    register();
+  </script>
+</body>
+</html>

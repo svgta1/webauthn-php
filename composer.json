@@ -1,0 +1,23 @@
+{
+    "name": "svgta/webauthn",
+    "description": "WebAuthn library for PHP",
+    "type": "library",
+    "require": {
+        "guzzlehttp/guzzle": "^7.8",
+        "web-auth/webauthn-lib": "^4.7",
+        "svgta/oidc-lib": "^0.1.1",
+        "symfony/clock": "^6.3"
+    },
+    "license": "GPL-3.0-only",
+    "autoload": {
+        "psr-4": {
+            "Svgta\\WebAuthn\\": "lib/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Svgta",
+            "email": "svgta@live.com"
+        }
+    ]
+}
