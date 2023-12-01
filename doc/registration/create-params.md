@@ -225,15 +225,6 @@ $webauthn->attestation->direct();
 $webauthn->attestation->enterprise();
 ```
 
-### extensions
-
-If you want to add extensions, do like this :&#x20;
-
-```php
-$webauthn->extensions->add("credProps", true);
-$webauthn->extensions->add("another id", "the value");
-```
-
 ### excludeCredentials
 
 You want to avoid some devices. For example, to not authorize a user to use the same devices he used to do a previous registration.

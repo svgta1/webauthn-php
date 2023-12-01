@@ -76,15 +76,6 @@ header('Content-Type: application/json; charset=utf-8');
 echo $webauthn->authenticate()->toJson();
 ```
 
-## Set extensions
-
-You can set extensions like that :&#x20;
-
-```php
-$webauthn->extensions->add("credProps", true);
-$webauthn->extensions->add("another id", "the value");
-```
-
 ## Anonymous authentication
 
 You can do an anonymous authentication (without knowing the user before the process). In this case :&#x20;

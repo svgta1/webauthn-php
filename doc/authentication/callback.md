@@ -16,8 +16,7 @@ The json file must have this structure :&#x20;
         "signature": "StUrFYQqbBXKxLFXoKAOh7v...",
         "userHandle": "ZjMwMjZmZTctMmExNi00..."
     },
-    "type": "public-key",
-    "clientExtensionResults": {},
+    "type": "public-key"
     "authenticatorAttachment": "cross-platform"
 }
 

@@ -19,11 +19,6 @@ The json file must have this structure :&#x20;
         "authenticatorData": "pwU_KOYP8gQFgRDoKV9JAJG_LMGwWBtPT..."
     },
     "type": "public-key",
-    "clientExtensionResults": {
-        "credProps": {
-            "rk": true
-        }
-    },
     "authenticatorAttachment": "cross-platform"
 };
 ```
@@ -440,6 +435,3 @@ if($mdsJson = $webauthn->fido->get_tmp_mds_aaguid($aaguid))
 $ret = $webauthn->register()->validate();
 ```
 
-## Extensions
-
-To do OR not. It's very a special thing.
