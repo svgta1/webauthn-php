@@ -35,6 +35,8 @@ class chkCert{
     for($i = 0; $i < count($certsList) - 1; $i++){
       if(implode(', ', $certsList[$i]['issuer']) !== implode(', ',  $certsList[$i+1]['subject']))
         throw MetadataStatementLoadingException::create('No valid issuer for ' . implode(', ', $certsList[$i]['subject']));
+      if(\openssl_x509_verify($certsList[$i]['cert'], $certsList[$i+1]['public_key']) !== 1)
+        throw MetadataStatementLoadingException::create('No valid signature for ' . implode(', ', $certsList[$i]['subject']));
     }
 
     $ca = end($certsList);
@@ -67,6 +69,8 @@ class chkCert{
       'isCa' => $isCa,
       'valid_from' => $dateFrom,
       'valid_to' => $dateTo,
+      'public_key' => \openssl_pkey_get_public($cert),
+      'cert' => $cert,
     ];
   }
 }
