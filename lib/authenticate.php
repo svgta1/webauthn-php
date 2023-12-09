@@ -1,9 +1,9 @@
 <?php
 namespace Svgta\WebAuthn;
 use Svgta\WebAuthn\entities\rp;
-use Svgta\OidcLib\OidcSession;
-use Svgta\OidcLib\OidcUtils;
-use Svgta\OidcLib\OidcException as Exception;
+use Svgta\Lib\Session;
+use Svgta\Lib\Utils;
+use Svgta\Lib\Exception as Exception;
 use Svgta\WebAuthn\op\allowCredentials;
 use Svgta\WebAuthn\op\extensions;
 use Svgta\WebAuthn\op\userVerification;
@@ -30,7 +30,7 @@ class authenticate{
 
   public function __construct(
     private readonly rp $rp,
-    private readonly OidcSession $session,
+    private readonly Session $session,
     private readonly allowCredentials $allowCredentials,
     private readonly extensions $extensions,
     private int $timeout,
@@ -71,7 +71,7 @@ class authenticate{
   }
 
   public function validate(string $device): string{
-    $device = json_decode($device, TRUE);
+    $device = \json_decode($device, TRUE);
     $credential = $device['credential'];
     $extension = $this->extensions->getChecker();
     $publicKeyCredentialSource = $credential['publicKeyCredentialSource'];
@@ -138,10 +138,10 @@ class authenticate{
     }
     if($this->userVerification->get() === AuthenticatorSelectionCriteria::USER_VERIFICATION_REQUIREMENT_DISCOURAGED){
       if(($this->timeout < 30000) || ($this->timeout > 180000))
-        OidcUtils::log(LOG_ALERT, 'The recommended range for timeout is : 30000 milliseconds to 180000 milliseconds');
+        Utils::log(LOG_ALERT, 'The recommended range for timeout is : 30000 milliseconds to 180000 milliseconds');
     }else{
       if(($this->timeout < 30000) || ($this->timeout > 600000))
-        OidcUtils::log(LOG_ALERT, 'The recommended range for timeout is : 30000 milliseconds to 600000 milliseconds');
+        Utils::log(LOG_ALERT, 'The recommended range for timeout is : 30000 milliseconds to 600000 milliseconds');
     }
 
     $op = PublicKeyCredentialRequestOptions::create(

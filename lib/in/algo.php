@@ -1,6 +1,6 @@
 <?php
 namespace Svgta\WebAuthn\in;
-use Svgta\OidcLib\OidcException as Exception;
+use Svgta\Lib\Exception as Exception;
 use Cose\Algorithms;
 
 class algo{

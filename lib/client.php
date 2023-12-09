@@ -12,10 +12,10 @@ use Svgta\WebAuthn\op\excludeCredentials;
 use Svgta\WebAuthn\op\allowCredentials;
 use Svgta\WebAuthn\mds\fido;
 use Svgta\WebAuthn\mds\mds;
-use Svgta\OidcLib\OidcException as Exception;
-use Svgta\OidcLib\OidcUtils;
-use Svgta\OidcLib\OidcKeys;
-use Svgta\OidcLib\OidcSession;
+use Svgta\Lib\Exception as Exception;
+use Svgta\Lib\Utils;
+use Svgta\Lib\Keys;
+use Svgta\Lib\Session;
 
 class client{
   public rp $rp;
@@ -39,8 +39,8 @@ class client{
   public function __construct(){
     $this->rp = new rp();
     $this->user = new user();
-    OidcSession::setSessionName(self::SESSION_NAME);
-    $this->session = new OidcSession();
+    Session::setSessionName(self::SESSION_NAME);
+    $this->session = new Session();
 
     $this->userVerification = new userVerification();
     $this->authenticatorAttachment = new authenticatorAttachment();
@@ -56,11 +56,11 @@ class client{
   }
 
   public static function setLogLevel(int $level){
-    OidcUtils::setLogLevel($level);
+    Utils::setLogLevel($level);
   }
 
   public function setSessionKey(string $key){
-    OidcSession::setSessionKey($key);
+    Session::setSessionKey($key);
   }
 
   public function timeout(int $time){

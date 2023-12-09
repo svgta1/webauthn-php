@@ -2,7 +2,7 @@
 namespace Svgta\WebAuthn\op;
 use Svgta\WebAuthn\in\algo;
 use Svgta\WebAuthn\op\pubKeyCredParams;
-use Svgta\OidcLib\OidcException as Exception;
+use Svgta\Lib\Exception as Exception;
 use Webauthn\PublicKeyCredentialCreationOptions;
 use Webauthn\PublicKeyCredentialRequestOptions;
 use Webauthn\AttestationStatement\AndroidSafetyNetAttestationStatementSupport;

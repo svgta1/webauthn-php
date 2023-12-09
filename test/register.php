@@ -71,7 +71,7 @@ foreach($contents['devices'] as $device){
 }
 
 
-
+//$webauthn->extensions->add("payment", ['isPayment' => true]);
 echo $webauthn->register()->toJson();
 //echo json_encode($webauthn->pubKeyCredParams::getAlgList());
 //print_r($webauthn->pubKeyCredParams::create(-1));

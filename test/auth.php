@@ -25,14 +25,16 @@ $userInfo = json_decode(file_get_contents($userFile));
 foreach($userInfo->devices as $device){
   $fileDev = $deviceDir . '/' . $device . '.json';
   $device = json_decode(file_get_contents($fileDev));
-  /*$webauthn->allowCredentials->add(
+  $webauthn->allowCredentials->add(
     id: $device->credential->id,
     type: $device->credential->publicKeyCredentialSource->type,
     transports: $device->credential->publicKeyCredentialSource->transports
-  );*/
+  );
 }
 
-$webauthn->userVerification->required();
-$webauthn->extensions->add("credProps", true);
-
-echo $webauthn->authenticate()->toJson();
+$webauthn->userVerification->discouraged();
+//$webauthn->extensions->add("appId", 'https://auth.meshistoires.fr');
+//$webauthn->extensions->add("payment", ['isPayment' => true]);
+$ret = json_decode($webauthn->authenticate()->toJson());
+$ret->expectedType = 'payment.get';
+echo json_encode($ret);

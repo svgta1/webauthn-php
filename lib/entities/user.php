@@ -1,14 +1,14 @@
 <?php
 namespace Svgta\WebAuthn\entities;
 use Webauthn\PublicKeyCredentialUserEntity;
-use Svgta\OidcLib\OidcUtils;
+use Svgta\Lib\Utils;
 
 class user{
   private PublicKeyCredentialUserEntity $user;
   private string $default_id;
 
   public function __construct(){
-    $this->default_id = OidcUtils::genUUID();
+    $this->default_id = Utils::genUUID();
   }
 
   public function get_json(){

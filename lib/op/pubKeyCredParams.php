@@ -1,7 +1,7 @@
 <?php
 namespace Svgta\WebAuthn\op;
 use Svgta\WebAuthn\in\algo;
-use Svgta\OidcLib\OidcException as Exception;
+use Svgta\Lib\Exception as Exception;
 use Webauthn\PublicKeyCredentialParameters;
 
 class pubKeyCredParams extends algo{

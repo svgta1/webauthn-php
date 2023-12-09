@@ -41,7 +41,7 @@ $userName['devices'][] = $val['credentialId'];
 file_put_contents($userNameFile, json_encode($userName));
 
 $deviceFile = $deviceDir . '/' . $val['credentialId'] . '.json';
-file_put_contents($deviceFile, json_encode($val['jsonData']));
+file_put_contents($deviceFile, $val['jsonData']);
 
 
 echo json_encode([

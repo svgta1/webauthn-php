@@ -2,9 +2,9 @@
 namespace Svgta\WebAuthn;
 use Svgta\WebAuthn\entities\rp;
 use Svgta\WebAuthn\entities\user;
-use Svgta\OidcLib\OidcSession;
-use Svgta\OidcLib\OidcUtils;
-use Svgta\OidcLib\OidcException as Exception;
+use Svgta\Lib\Session;
+use Svgta\Lib\Utils;
+use Svgta\Lib\Exception as Exception;
 use Svgta\WebAuthn\op\userVerification;
 use Svgta\WebAuthn\op\authenticatorAttachment;
 use Svgta\WebAuthn\op\residentKey;
@@ -37,7 +37,7 @@ class register{
   public function __construct(
     private readonly rp $rp,
     private readonly user $user,
-    private readonly OidcSession $session,
+    private readonly Session $session,
     private readonly userVerification $userVerification,
     private readonly authenticatorAttachment $authenticatorAttachment,
     private readonly residentKey $residentKey,
@@ -152,10 +152,10 @@ class register{
     }
     if($this->userVerification->get() === AuthenticatorSelectionCriteria::USER_VERIFICATION_REQUIREMENT_DISCOURAGED){
       if(($this->timeout < 30000) || ($this->timeout > 180000))
-        OidcUtils::log(LOG_ALERT, 'The recommended range for timeout is : 30000 milliseconds to 180000 milliseconds');
+        Utils::log(LOG_ALERT, 'The recommended range for timeout is : 30000 milliseconds to 180000 milliseconds');
     }else{
       if(($this->timeout < 30000) || ($this->timeout > 600000))
-        OidcUtils::log(LOG_ALERT, 'The recommended range for timeout is : 30000 milliseconds to 600000 milliseconds');
+        Utils::log(LOG_ALERT, 'The recommended range for timeout is : 30000 milliseconds to 600000 milliseconds');
     }
     $op = PublicKeyCredentialCreationOptions::create(
       rp: $this->rp->get(),
